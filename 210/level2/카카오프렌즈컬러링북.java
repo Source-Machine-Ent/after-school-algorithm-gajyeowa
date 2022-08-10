@@ -47,17 +47,17 @@ class Solution {
         else {
             visited[i][j] = true;
             currArea++;
-        }
 
-        for (int k = 0; k < 4; k++) {
-            int i0 = i + dxy[k][0];
-            int j0 = j + dxy[k][1];
+            for (int k = 0; k < 4; k++) {
+                int i0 = i + dxy[k][0];
+                int j0 = j + dxy[k][1];
 
-            if (i0 < 0 || i0 >= m || j0 < 0 || j0 >= n)
-                continue;
+                if (i0 < 0 || i0 >= m || j0 < 0 || j0 >= n)
+                    continue;
 
-            if (!visited[i0][j0] && picture[i][j] == picture[i0][j0]) {
-                dfs(i0, j0);
+                if (!visited[i0][j0] && picture[i][j] == picture[i0][j0]) {
+                    dfs(i0, j0);
+                }
             }
         }
     }
