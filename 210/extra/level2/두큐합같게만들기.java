@@ -33,17 +33,16 @@ class Solution {
             cnt++;
 
             int currNum = -1;
-            if(sum1 > sum2) {
+            if (sum1 > sum2) {
                 currNum = q1.poll();
                 q2.offer(currNum);
-
                 sum1 -= currNum;
                 sum2 += currNum;
-                q2.offer(currNum);
-            } else {
+            }
+
+            else {
                 currNum = q2.poll();
                 q1.offer(currNum);
-
                 sum1 += currNum;
                 sum2 -= currNum;
             }
