@@ -1,33 +1,31 @@
 # 2022.09.12
-# 풀이 시간: 24분 35초
+# 풀이 시간: 43분 28초
 # 채점 결과: 오답
-# 시간복잡도: O(NlogN)
+# 시간복잡도: O(N)
 # 문제 링크: https://school.programmers.co.kr/learn/courses/30/lessons/42586
 
-import math
-
 def solution(progresses: list, speeds: list) -> list:
-    completed_days = []
-    for i in range(len(progresses)):
-        day = math.ceil((100 - progresses[i]) / speeds[i])
-        completed_days.append(day)
+    days = []
+    for progress, speed in zip(progresses, speeds):
+        remain = 100 - progress
+        day = 0
+        if remain % speed == 0:
+            day = remain // speed
+        else:
+            day = remain // speed + 1
+        days.append(day)
 
-    completed_days = completed_days[::-1]
     answer = []
-    while completed_days:
-        count = 1
-        completed = completed_days.pop()
-        if not completed_days:
-            answer.append(count)
-            break
-        while completed >= completed_days[-1]:
-            completed = completed_days.pop()
-            count += 1
-            if not completed_days:
-                break
-        
-        answer.append(count)
-
+    increased_day = days[0]
+    num = 1
+    for day in days[1:]:
+        if day - increased_day > 0:
+            answer.append(num)
+            num = 1
+        else:
+            num += 1
+    answer.append(num)
+    
     return answer
 
 print(solution([93, 30, 55], [1, 30, 5])) # [2, 1]
