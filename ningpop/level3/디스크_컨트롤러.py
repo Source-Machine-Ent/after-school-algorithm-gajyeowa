@@ -9,7 +9,7 @@ import heapq
 def solution(jobs: list) -> int:
     h = []
     for value in jobs:
-        heapq.heappush(h, (value[1] - value[0], value))
+        heapq.heappush(h, (value[0] + value[1], value))
     
     print(h)
 
@@ -17,9 +17,9 @@ def solution(jobs: list) -> int:
     last_process_time = 0
     while h:
         job = heapq.heappop(h)
-        req_to_res = job[1][1] - job[1][0] + last_process_time
+        req_to_res = job[1][1] + last_process_time - job[1][0]
         answer += req_to_res
-        last_process_time += req_to_res
+        last_process_time += job[1][1]
     answer //= len(jobs)
     return answer
 
