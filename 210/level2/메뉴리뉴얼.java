@@ -87,7 +87,7 @@ class Solution {
         visited[idx] = false;
         dfs(currOrders, visited, idx + 1);
     }
-    
+
     class Best {
         ArrayList<String> combis = new ArrayList<>();
         int count = 0;
