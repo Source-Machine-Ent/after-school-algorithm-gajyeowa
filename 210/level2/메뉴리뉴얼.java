@@ -25,7 +25,9 @@ class Solution {
 
         for (String str : orders) {
             boolean[] visited = new boolean[str.length()];
-            dfs(str.toCharArray(), visited, 0);
+            char[] a = str.toCharArray();
+            Arrays.sort(a);
+            dfs(a, visited, 0);
         }
 
         Set<String> set = combis.keySet();
@@ -51,7 +53,7 @@ class Solution {
                 answer.add(string);
             }
         }
-        
+
         Collections.sort(answer);
 
         return answer;
@@ -75,6 +77,8 @@ class Solution {
             } else {
                 combis.put(combi, 1);
             }
+
+            System.out.println(combi + " " + combis.get(combi));
             return;
         }
 
