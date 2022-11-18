@@ -2,6 +2,16 @@ package level2;
 
 import java.util.*;
 
+class Main {
+    public static void main(String[] args) throws Exception {
+        String[] r = { "a", "b"};
+        String[] w = { "a", "b"};
+        Solution sol = new Solution();
+
+        System.out.println("result : " + sol.solution(r, w));
+    }
+}
+
 class Solution {
     public int[] solution(String[] info, String[] query) {
         int[] answer = new int[query.length];
@@ -14,7 +24,7 @@ class Solution {
             for(int i = 0;i<4;i++) {
                 currInfo += strs[i].substring(0,1);
             }
-            
+
             if (!infos.containsKey(currInfo)) {
                 infos.put(currInfo, new ArrayList<>(Arrays.asList(Integer.parseInt(strs[4]))));
             } else {
