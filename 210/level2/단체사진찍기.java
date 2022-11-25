@@ -15,49 +15,48 @@ class Main {
 }
 
 class Solution {
-    String[] data;
     int answer = 0;
+    public int solution(int n, String[] data) {
+        String[] people = { "A", "C", "F", "J", "M", "N", "R", "T" };
+        boolean[] visited = new boolean[8];
 
-    public int solution(int n, String[] data0) {
-        data = data0;
-        ArrayList<Character> peoples = new ArrayList<>(Arrays.asList('A', 'C', 'F', 'J', 'M', 'N', 'R', 'T'));
-        dfs(0, peoples, peoples);
+        dfs(visited, people, data, "");
 
         return answer;
     }
 
-    void dfs(int degree, ArrayList<Character> currArr, ArrayList<Character> leftPeoples) {
-        if (degree == 8) {
-            for (String s : data) {
-                char a = s.charAt(0);
-                char b = s.charAt(2);
-                int res = s.charAt(4) - 48;
-
-                if (s.charAt(3) == '=' && Math.abs(currArr.indexOf(a) - currArr.indexOf(b)) - 1 == res) {
-                    answer++;
-                }
-
-                else if (s.charAt(3) == '>' && Math.abs(currArr.indexOf(a) - currArr.indexOf(b)) - 1 >= res) {
-                    answer++;
-                }
-
-                else if (s.charAt(3) == '<' && Math.abs(currArr.indexOf(a) - currArr.indexOf(b)) - 1 <= res) {
-                    answer++;
-                }
-            }
+    public void dfs(boolean[] visited, String[] people, String[] data, String shot) {
+        if (shot.length() == 8) {
+            if (check(shot, data))
+                answer++;
+            return;
         }
 
-        else {
-            for (Character c : leftPeoples) {
-                ArrayList<Character> nextPeople = new ArrayList<>();
-                nextPeople.addAll(leftPeoples);
-                nextPeople.remove(c);
-                currArr.set(degree, c);
-                ArrayList<Character> nextArr = new ArrayList<>();
-                nextArr.addAll(currArr);
-
-                dfs(degree + 1, nextArr, nextPeople);
+        for (int i = 0; i < 8; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                dfs(visited, people, data, shot + people[i]);
+                visited[i] = false;
             }
         }
+    }
+
+    public boolean check(String str, String[] data) {
+        for (String d : data) {
+            int aIdx = str.indexOf(d.charAt(0));
+            int bIdx = str.indexOf(d.charAt(2));
+            int distance = Math.abs(aIdx - bIdx) - 1;
+
+            char op = d.charAt(3);
+            int operand = d.charAt(4) - '0';
+            if (op == '=' && distance != operand) {
+                return false;
+            } else if (op == '<' && distance >= operand) {
+                return false;
+            } else if (op == '>' && distance <= operand) {
+                return false;
+            }
+        }
+        return true;
     }
 }
